@@ -268,19 +268,10 @@
         <snapshots>
           <enabled>true</enabled>
         </snapshots>
-      </repository>
-        <repository>
-        <id>docs-prod</id>
-        <name>Docbook server</name>
-         <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
-        <layout>default</layout>
-        <snapshots>
+        <releases>
           <enabled>true</enabled>
-        </snapshots>
+        </releases>
       </repository>
-    </repositories>
-
-   <pluginRepositories>
       <pluginRepository>
         <id>docs-staging</id>
         <name>Docbook</name>
@@ -289,12 +280,6 @@
         <snapshots>
           <enabled>true</enabled>
         </snapshots>
-      </pluginRepository>
-      <pluginRepository>
-        <id>docs-prod</id>
-        <name>Docbook</name>
-        <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
-        <layout>default</layout>
         <releases>
           <enabled>true</enabled>
         </releases>
