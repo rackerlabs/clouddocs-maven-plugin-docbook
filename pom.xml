@@ -259,6 +259,49 @@
       <tag>clouddocs-maven-plugin-docbook-2.1.5</tag>
   </scm>
 
+     <repositories>
+        <repository>
+        <id>docs-staging</id>
+        <name>Docbook staging repo</name>
+         <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
+        <layout>default</layout>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+        <repository>
+        <id>docs-prod</id>
+        <name>Docbook server</name>
+         <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
+        <layout>default</layout>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+    </repositories>
+
+   <pluginRepositories>
+      <pluginRepository>
+        <id>docs-staging</id>
+        <name>Docbook</name>
+        <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
+        <layout>default</layout>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </pluginRepository>
+      <pluginRepository>
+        <id>docs-prod</id>
+        <name>Docbook</name>
+        <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
+        <layout>default</layout>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+      </pluginRepository>
+   </pluginRepositories>
+
+<!--
   <distributionManagement>
      <repository>
         <id>docs-prod</id>
@@ -271,7 +314,7 @@
         <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
      </snapshotRepository>
   </distributionManagement>
-
+-->
     <profiles>
       <profile>
         <id>sonatype-oss-release</id>
