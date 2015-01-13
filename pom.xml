@@ -262,29 +262,56 @@
      <repositories>
         <repository>
         <id>docs-staging</id>
-        <name>Docbook staging repo</name>
-         <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
+        <name>Docbook server</name>
+        <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
         <layout>default</layout>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
         <releases>
           <enabled>true</enabled>
         </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
       </repository>
+        <repository>
+        <id>docs-prod</id>
+        <name>Docbook server</name>
+        <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
+        <layout>default</layout>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+    </repositories>
+
+   <pluginRepositories>
       <pluginRepository>
         <id>docs-staging</id>
         <name>Docbook</name>
         <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
         <layout>default</layout>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
         <releases>
           <enabled>true</enabled>
         </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
       </pluginRepository>
-   </pluginRepositories>
+      <pluginRepository>
+        <id>docs-prod</id>
+        <name>Docbook</name>
+        <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
+        <layout>default</layout>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
 
 <!--
   <distributionManagement>
