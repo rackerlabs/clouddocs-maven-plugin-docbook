@@ -269,7 +269,7 @@
         <id>docs-staging</id>
         <name>Docbook SnapShot repo</name>
         <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
-     </snapShotRepository>
+     </snapshotRepository>
   </distributionManagement>
 
     <profiles>
