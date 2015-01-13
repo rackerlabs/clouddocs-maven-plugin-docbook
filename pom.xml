@@ -265,11 +265,11 @@
         <name>Docbook release repo</name>
         <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
      </repository>
-     <repository>
+     <snapshotRepository>
         <id>docs-staging</id>
         <name>Docbook SnapShot repo</name>
         <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
-     </repository>
+     </snapShotRepository>
   </distributionManagement>
 
     <profiles>
