@@ -47,7 +47,7 @@
   <properties>
     <arguments></arguments>
     <java6.home>${env.JAVA6_HOME}</java6.home>
-    <release.arguments>clean install</release.arguments>
+    <release.arguments>clean install -e</release.arguments>
     <bootclasspath.compile>${env.JAVA6_HOME}/lib/rt.jar</bootclasspath.compile>
     <excluded.properties>annotation.graphic.close</excluded.properties>
     <bootclasspath.testCompile>${env.JAVA6_HOME}/lib/rt.jar</bootclasspath.testCompile>
@@ -1028,6 +1028,17 @@
   <repositories>
     <repository>
       <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>docbook-nexus-server</id>
+      <name>Docbook server</name>
+      <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
+    </repository>
+    <repository>
+      <releases>
         <enabled>false</enabled>
       </releases>
       <snapshots>
@@ -1047,6 +1058,17 @@
     </repository>
   </repositories>
   <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>docbook-nexus-server</id>
+      <name>Docbook</name>
+      <url>http://162.209.12.245/nexus/content/repositories/docs-prod/</url>
+    </pluginRepository>
     <pluginRepository>
       <releases>
         <updatePolicy>never</updatePolicy>
