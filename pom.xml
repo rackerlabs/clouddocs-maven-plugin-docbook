@@ -252,9 +252,9 @@
     </issueManagement>
 
     <scm>
-      <url>https://github.com/rackerlabs/clouddocs-maven-plugin/tree/master</url>
-      <connection>scm:git:git://github.com/rackerlabs/clouddocs-maven-plugin.git</connection>
-      <developerConnection>scm:git:git@github.com:rackerlabs/clouddocs-maven-plugin.git</developerConnection>
+      <url>https://github.com/rackerlabs/clouddocs-maven-plugin-docbook/tree/master</url>
+      <connection>scm:git:git://github.com/rackerlabs/clouddocs-maven-plugin-docbook.git</connection>
+      <developerConnection>scm:git:git@github.com:rackerlabs/clouddocs-maven-plugin-docbook.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
 
