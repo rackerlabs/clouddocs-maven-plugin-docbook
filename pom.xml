@@ -41,7 +41,7 @@
       <!-- Need to exclude this because the description includes Unicode characters,
            and docbkx-tools doesn't support specifying the encoding. -->
       <excluded.properties>annotation.graphic.close</excluded.properties>
-      <release.arguments>generate-sources package -Dwebhelp.war=1</release.arguments>
+      <release.arguments>clean install</release.arguments>
     </properties>
 
     <description>
