@@ -25,6 +25,7 @@
   <scm>
     <connection>scm:git:git://github.com/rackerlabs/clouddocs-maven-plugin-docbook.git</connection>
     <developerConnection>scm:git:git@github.com:rackerlabs/clouddocs-maven-plugin-docbook.git</developerConnection>
+    <tag>clouddocs-maven-plugin-docbook-2.1.5</tag>
     <url>https://github.com/rackerlabs/clouddocs-maven-plugin-docbook/tree/master</url>
   </scm>
   <issueManagement>
@@ -44,14 +45,15 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <bootclasspath.compile>${env.JAVA6_HOME}/lib/rt.jar</bootclasspath.compile>
-    <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
-    <excluded.properties>annotation.graphic.close</excluded.properties>
     <arguments></arguments>
-    <bootclasspath.java6>${env.JAVA6_HOME}/lib/rt.jar</bootclasspath.java6>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java6.home>${env.JAVA6_HOME}</java6.home>
+    <release.arguments>clean install</release.arguments>
+    <bootclasspath.compile>${env.JAVA6_HOME}/lib/rt.jar</bootclasspath.compile>
+    <excluded.properties>annotation.graphic.close</excluded.properties>
     <bootclasspath.testCompile>${env.JAVA6_HOME}/lib/rt.jar</bootclasspath.testCompile>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <bootclasspath.java6>${env.JAVA6_HOME}/lib/rt.jar</bootclasspath.java6>
+    <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
   </properties>
   <dependencies>
     <dependency>
