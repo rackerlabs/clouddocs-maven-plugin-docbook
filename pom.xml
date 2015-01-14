@@ -258,7 +258,7 @@
       <developerConnection>scm:git:git@github.com:rackerlabs/clouddocs-maven-plugin-docbook.git</developerConnection>
       <tag>clouddocs-maven-plugin-docbook-2.1.5</tag>
   </scm>
-
+<!--
      <repositories>
         <repository>
         <id>docs-staging</id>
@@ -312,8 +312,8 @@
         </snapshots>
       </pluginRepository>
     </pluginRepositories>
+-->
 
-<!--
   <distributionManagement>
      <repository>
         <id>docs-prod</id>
@@ -326,7 +326,7 @@
         <url>http://162.209.12.245/nexus/content/repositories/docs-staging/</url>
      </snapshotRepository>
   </distributionManagement>
--->
+
     <profiles>
       <profile>
         <id>sonatype-oss-release</id>
