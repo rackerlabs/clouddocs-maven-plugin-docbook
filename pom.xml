@@ -253,11 +253,17 @@
     </issueManagement>
 
     <scm>
+        <connection>scm:git:ssh://git@github.com/rackerlabs/clouddocs-maven-plugin-docbook.git</connection>
+    </scm>
+<!--
+    <scm>
       <url>https://github.com/rackerlabs/clouddocs-maven-plugin-docbook/tree/master</url>
       <connection>scm:git:git://github.com/rackerlabs/clouddocs-maven-plugin-docbook.git</connection>
       <developerConnection>scm:git:git@github.com:rackerlabs/clouddocs-maven-plugin-docbook.git</developerConnection>
       <tag>clouddocs-maven-plugin-docbook-2.1.5</tag>
-  </scm>
+    </scm>
+-->
+
 <!--
      <repositories>
         <repository>
