@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -24,8 +25,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.sax.SAXSource;
 
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.project.MavenProject;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
@@ -36,10 +38,8 @@ import com.agilejava.docbkx.maven.AbstractWebhelpMojo;
 import com.agilejava.docbkx.maven.PreprocessingFilter;
 import com.agilejava.docbkx.maven.TransformerBuilder;
 import com.rackspace.cloud.api.docs.builders.PDFBuilder;
-
 import com.rackspace.cloud.api.docs.CalabashHelper;
 import com.rackspace.cloud.api.docs.DocBookResolver;
-
 import com.agilejava.docbkx.maven.Parameter;
 import com.agilejava.docbkx.maven.FileUtils;
 
@@ -66,6 +66,8 @@ public abstract class WebHelpMojo extends AbstractWebhelpMojo {
        *
        * @parameter expression="${project}"
        * @required
+       * 
+       * This value is injected by the nexus injection engine at runtime, and allows for retrieving pom.xml element values
        */
       private MavenProject docProject;
 
@@ -453,6 +455,7 @@ public abstract class WebHelpMojo extends AbstractWebhelpMojo {
 
         super.adjustTransformer(transformer, sourceFilename, targetFile);
                     
+        
                     
     transformer.setParameter("groupId", docProject.getGroupId());
     transformer.setParameter("artifactId", docProject.getArtifactId());
@@ -797,8 +800,45 @@ public abstract class WebHelpMojo extends AbstractWebhelpMojo {
 	}catch(Exception e){
 	    getLog().info("Exceptional!" + e);
 	}
+	//Get all the plugins entries from the pom.xml
+	List<Plugin>plugins=docProject.getBuildPlugins();
+	String clouddocsMavenPluginDocbook="false";
+	
+	//The pom.xml of each docbook that uses the rax-autodeploy project to deploy .war's to production, must depend on the 
+	//clouddocs-maven-plugin-docbook. To enforce this, we check all the <artifactid> elements that is a child of the 
+	//<plugin> element. If such <artifactid> element has a value of "clouddocs-maven-plugin-docbook" then we set the 
+	//clouddocsMavenPluginDocbook="true" otherwise we leave the value as "false"
+	if(null!=plugins){
+		for(Plugin aPlugin:plugins){
+			System.out.println("!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#aPlugin.getArtifactId()="+aPlugin.getArtifactId());
+			String artifactId=aPlugin.getArtifactId();
+			if(null!=artifactId && artifactId.equals("clouddocs-maven-plugin-docbook")){
+				clouddocsMavenPluginDocbook="true";
+				break;
+			}
+		}
+	}
+	
+	//If we do not detect an <artifactid> child element of the <plugin> element with a value of "clouddocs-maven-plugin-docbook"
+	//then we should check all the <dependency> elements to see if any <artifactid>  child element of the <dependency> element
+	//has the value of "clouddocs-maven-plugin-docbook"
+	if(null!=clouddocsMavenPluginDocbook && clouddocsMavenPluginDocbook.equals("false")){
+		List<Dependency>dependencies=docProject.getDependencies();
+		for(Dependency aDependency:dependencies){
+			System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&aDependency.getArtifactId()="+aDependency.getArtifactId());
+		    String artifactId=aDependency.getArtifactId();
+		    if(null!=artifactId && artifactId.equals("clouddocs-maven-plugin-docbook")){
+		    	clouddocsMavenPluginDocbook="true";
+		    	break;
+		    }
+		}
+	}
+	
 	map.put("targetDirectory", getTargetDirectory().getParentFile());
-    	map.put("webhelp.war", webhelpWar);
+	//Add the clouddocsDocbook parameter to the pipeline so that it is 
+	//available to the bookinfo.xsl xslt file
+	map.put("clouddocsDocbook", clouddocsMavenPluginDocbook);
+    map.put("webhelp.war", webhelpWar);
 	map.put("publicationNotificationEmails", publicationNotificationEmails);
         map.put("includeDateInPdfFilename", includeDateInPdfFilename);    
         map.put("pdfFilenameBase", pdfFilenameBase);    

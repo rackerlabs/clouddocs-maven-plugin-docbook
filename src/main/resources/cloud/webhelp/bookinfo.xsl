@@ -9,6 +9,7 @@
     version="2.0">
     
     <xsl:param name="base.dir" select="'target/docbkx/xhtml/example/'"/>
+    
     <xsl:param name="input.filename"/>
     <xsl:param name="default.topic"><xsl:value-of select="/*/*[self::db:chapter or self::db:preface or self::db:section or self::db:article or self::db:book or self::db:part][1]/@xml:id"/>.html</xsl:param>
     <xsl:param name="IndexWar"/>
@@ -21,7 +22,9 @@
     <xsl:param name="branding">rackspace</xsl:param>
     <xsl:param name="pdfFilenameBase"/>   
     <xsl:param name="webhelpDirname"/>
-
+    
+    <xsl:param name="clouddocsDocbook"/>
+    
     <xsl:param name="includeDateInPdfFilename">
         <xsl:choose>
             <xsl:when test="$branding = 'openstack'">0</xsl:when>
@@ -94,7 +97,19 @@
 				    </xsl:variable>
                                     <displayname><xsl:value-of select="if (not(normalize-space($displayname) = '')) then normalize-space($displayname) else '????'"/></displayname>
                                     <url><xsl:choose><xsl:when test="/*/db:info/raxm:metadata/raxm:product[1]/@url"><xsl:value-of select="concat($IndexWar, if(not(/*/db:info/raxm:metadata/raxm:product[1]/@url = '')) then /*/db:info/raxm:metadata/raxm:product[1]/@url else concat('/', if($webhelpDirname != '') then $webhelpDirname else $input.filename),'/content/',$default.topic)"/></xsl:when><xsl:otherwise><xsl:value-of select="concat($IndexWar, if(not(/*/db:info/raxm:metadata/raxm:product[1] = '')) then concat('/', /*/db:info/raxm:metadata/raxm:product[1], '/api/',/*/db:info/raxm:metadata/raxm:product[1]/@version) else '','/',if($webhelpDirname != '') then $webhelpDirname else $input.filename,'/content/',$default.topic)"/></xsl:otherwise></xsl:choose></url>
-                                    <sequence><xsl:value-of select="f:calculatepriority(/*/db:info//raxm:priority[1])"/></sequence> 
+                                    <sequence><xsl:value-of select="f:calculatepriority(/*/db:info//raxm:priority[1])"/></sequence>                                    
+	                                <!-- 
+	                                 The $clouddocsDocbook parameter is passed into the pipeline in WebHelpMojo.java. 
+		                             If either a <plugin> or a <dependency> element has an <artifactid> child 
+		                             element with the value of "clouddocs-maven-plugin-docbook" then the select 
+		                             will return true, otherwise $clouddocsDocbook is set to false.
+		                             This populates the <clouddocs-docbook> element in each docbook bookinfo.xml. 
+		                             
+		                             The rax-autodeploy project (check-plugin branch) checks the value of <clouddocs-docbook> 
+		                             in bookinfo.xml and if it is true, it allows deployment to production, otherwise users 
+		                             will not be able to deploy 
+		                             -->
+                                    <clouddocs-docbook><xsl:value-of select="$clouddocsDocbook"/></clouddocs-docbook> 
                                 </type>  
                                </xsl:if>
                                 <xsl:apply-templates 
@@ -161,7 +176,19 @@ branding=<xsl:value-of select="$branding"/>
                     <id><xsl:value-of select="f:calculatetype(parent::*/db:info//raxm:type[1])"/></id>
                     <displayname><xsl:value-of select="if (not(normalize-space(.//db:link[1]) = '')) then .//db:link[1] else '?????'"/></displayname>
                     <url><xsl:value-of select=".//db:link[1]/@xlink:href"/></url>
-                    <sequence><xsl:value-of select="f:calculatepriority(parent::*/db:info//raxm:priority[1]) + count(preceding::db:listitem[generate-id(parent::db:itemizedlist) = $itemizedlistid])"/></sequence> 
+                    <sequence><xsl:value-of select="f:calculatepriority(parent::*/db:info//raxm:priority[1]) + count(preceding::db:listitem[generate-id(parent::db:itemizedlist) = $itemizedlistid])"/></sequence>
+	                <!-- 
+	                The $clouddocsDocbook parameter is passed into the pipeline in WebHelpMojo.java. 
+		            If either a <plugin> or a <dependency> element has an <artifactid> child 
+		            element with the value of "clouddocs-maven-plugin-docbook" then the select 
+		            will return true, otherwise $clouddocsDocbook is set to false.
+		            This populates the <clouddocs-docbook> element in each docbook bookinfo.xml. 
+		            
+		            The rax-autodeploy project (check-plugin branch) checks the value of <clouddocs-docbook> 
+		            in bookinfo.xml and if it is true, it allows deployment to production, otherwise users 
+		            will not be able to deploy 
+		            -->
+                    <clouddocs-docbook><xsl:value-of select="$clouddocsDocbook"/></clouddocs-docbook>          
                 </type>        
     </xsl:template>
         
@@ -237,5 +264,6 @@ branding=<xsl:value-of select="$branding"/>
             <xsl:otherwise>100000</xsl:otherwise>
         </xsl:choose>
     </xsl:function>
+
     
 </xsl:stylesheet>
